@@ -39,3 +39,27 @@ fails (working agreement rule 2). A silent skip is a FAIL (rule 3).
 
 This project is not a deliverable. It is a gate on the cassie module's
 public GDScript surface.
+
+## Pen demo (interactive, driven by a computer-use agent)
+
+`scenes/pen_demo.tscn` maps a mouse drag on the z=0 plane to one
+`CassieSketcher` stroke through the workspace's 3D↔2D helper
+(`addons/screen_projection/`, lifted from `udon2godot`'s `u.gd`). Each
+committed stroke draws as a line and a bone chain on the `Rig` skeleton;
+each closed cycle draws as an alpha-0.35 patch so the strokes behind it stay
+readable. Counts land in `user://pen_demo_result.json` after every commit.
+
+Measured 2026-09-17 on the `metal=no` editor build with
+`--rendering-driver opengl3` (the Vulkan/MoltenVK path segfaults at window
+creation on that build; three drags of 300 px at 60 steps each):
+
+| run                              | nodes | edges | patches | triangles | bones |
+| -------------------------------- | ----- | ----- | ------- | --------- | ----- |
+| endpoints 14 px apart            | 6     | 3     | 0       | 0         | 27    |
+| strokes overshoot and cross      | 6     | 3     | 0       | 0         | 27    |
+| endpoints shared to the pixel    | 3     | 3     | 1       | 4612      | 27    |
+
+The live commit path merges endpoints within `merge_epsilon` (0.02 units,
+about 5 px at this camera) and does not split strokes where they cross, so
+the second row is the defect the crossing case exposes and the third row is
+the pipeline working. Screenshots for both are under `scenes/evidence/`.
