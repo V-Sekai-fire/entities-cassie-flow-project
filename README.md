@@ -58,8 +58,16 @@ creation on that build; three drags of 300 px at 60 steps each):
 | endpoints 14 px apart            | 6     | 3     | 0       | 0         | 27    |
 | strokes overshoot and cross      | 6     | 3     | 0       | 0         | 27    |
 | endpoints shared to the pixel    | 3     | 3     | 1       | 4612      | 27    |
+| overshoot and cross, after split | 10    | 11    | 1       | 2366      | 27    |
 
 The live commit path merges endpoints within `merge_epsilon` (0.02 units,
-about 5 px at this camera) and does not split strokes where they cross, so
-the second row is the defect the crossing case exposes and the third row is
-the pipeline working. Screenshots for both are under `scenes/evidence/`.
+about 5 px at this camera). Before `add_stroke_intersecting` it did not
+split strokes where they cross, and the second row is that defect; the
+fourth row is the same three drags against `a9b477edaf`, where each stroke
+is cut at its crossings and the inner triangle surfaces with the stubs left
+outside it. Screenshots for all three are under `scenes/evidence/`.
+
+The fourth row has one node and two edges more than the nine-and-nine the
+doctest predicts for three straight strokes. The beautifier fits a curve to
+each drag, so a stroke can cross a neighbour's stub as well as its middle;
+the count is reported as measured, not reconciled.
