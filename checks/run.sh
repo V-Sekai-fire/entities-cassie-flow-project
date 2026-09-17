@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 # Drives the cassie GDScript surface against a Godot binary built from
-# 4-entities/godot-cassie and reports per-check pass/fail with a control row.
-#   checks/run.sh <godot binary>
+# 4-entities/godot-cassie/modules/cassie. Each check runs its own negative
+# control inline and prints a summary. An unresolvable binary is a FAIL
+# (rule 3: silent skips read like passes).
+#   GODOT_BIN=/path/to/godot checks/run.sh
 set -u
-G="${1:?path to a godot binary with modules/cassie compiled in}"
 cd "$(dirname "$0")/.."
+G="${GODOT_BIN:-../../4-entities/godot-cassie/bin/godot.macos.editor.arm64}"
+if [ ! -x "$G" ]; then
+  echo "FAIL cannot locate a Godot binary at $G (set GODOT_BIN)"
+  exit 1
+fi
+
 fails=0
 runs=0
-printf '%-40s %-6s  %s\n' "check" "exit" "verdict"
+printf '%-30s %-6s  %s\n' "check" "exit" "verdict / control"
 for script in checks/beautify_determinism.gd \
               checks/curvenet_extract.gd \
               checks/patch_pipeline.gd \
@@ -18,9 +25,9 @@ for script in checks/beautify_determinism.gd \
   timeout 120 "$G" --headless --path . --script "res://$script" -- "--out=$PWD/$out" > "$out/log.txt" 2>&1
   code=$?
   verdict=$(grep -h "^DONE\|^FAIL\|control caught" "$out/log.txt" | tail -1)
-  printf '%-40s %-6d  %s\n' "$name" "$code" "${verdict:-none}"
+  printf '%-30s %-6d  %s\n' "$name" "$code" "${verdict:-none}"
   runs=$((runs + 1))
   [ "$code" -eq 0 ] || fails=$((fails + 1))
 done
 echo "$fails of $runs checks failed"
-exit $fails
+exit "$fails"
