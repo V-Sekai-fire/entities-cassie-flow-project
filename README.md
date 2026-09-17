@@ -71,3 +71,44 @@ The fourth row has one node and two edges more than the nine-and-nine the
 doctest predicts for three straight strokes. The beautifier fits a curve to
 each drag, so a stroke can cross a neighbour's stub as well as its middle;
 the count is reported as measured, not reconciled.
+
+## Hat fixture against the Unity capture
+
+`modules/cassie/tests/test_cassie_pipeline_bench.h` replays the tracked
+138-stroke hat fixture prefix by prefix and compares the union of every
+cycle's stroke set against the 199 unique border sets in Unity CASSIE's
+`allCreatedPatches` (`hat.json`, written by `lake exe hat_dump`). Set
+semantics, because Unity lists a stroke once per segment it contributes.
+
+Measured 2026-09-17 on `a45f5b143b`, `--no-skip --test-case="*Border-set
+diff*"`:
+
+| proximity | cycles detected | matched | false positive | false negative |
+| --------- | --------------- | ------- | -------------- | -------------- |
+| 0.0017    | 189             | 47      | 142            | 152            |
+| 0.02      | 271             | 24      | 247            | 175            |
+
+The floor was 26 matched before the walk was ported. The arrangement at
+0.0017 matches the Lean model exactly (227 nodes, 399 edges); the walk
+closes 88 cycles against Lean's 65 on the full fixture, and the C++ pins
+that number as a witness.
+
+Three departures from the Lean model are deliberate, and a unit fixture
+the model gets wrong pins each one:
+
+- the normal is carried across a node from the direction of travel;
+  Unity passes `-prevSegment.GetTangentAt(node)` and the Lean port drops
+  the negation, so a straight-through node becomes a half-turn about an
+  arbitrary axis (Lean finds 0 of a cube's 6 faces);
+- `reversed` is decided at each node from the transported normal rather
+  than toggled after it, which lags one node (Lean finds 1 of a planar
+  2x2 grid's 4 cells);
+- the plane fit is converged rather than eight Y-up power iterations,
+  which on a z=0 sketch never leaves the seed's invariant subspace.
+
+Of the 152 borders Unity has that the walk does not, 49 are strict
+subsets of a cycle it did find and 24 differ by one stroke. The largest
+remaining cause is bundles of near-parallel strokes between the same two
+nodes (the mirror pairs 4–9 at the hat apex), where the plane fit and the
+CCW ring are degenerate: the walk pairs (4,6) and (5,7) where Unity paired
+(6,7). Not fixed; recorded so the next number has a floor.
