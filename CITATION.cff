@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this project or its checks, please cite it as below."
+type: software
+title: "Cassie flow project"
+authors:
+  - name: "weft"
+license: "Apache-2.0 OR MIT"
+abstract: >-
+  A headless Godot project that drives the cassie pen / mesh / curvenet
+  operators exposed by modules/cassie in V-Sekai-fire/entities-godot at
+  feat/module-cassie and checks the beautifier, curvenet extractor,
+  patch pipeline, and constraint solver against recorded goldens, with
+  planted controls for every check.
+references:
+  - type: software
+    title: "entities-godot"
+    authors:
+      - name: "weft"
+    url: "https://github.com/V-Sekai-fire/entities-godot"
+    license: MIT
+  - type: conference-paper
+    title: "CASSIE: Curve and Surface Sketching in Immersive Environments"
+    year: 2021
