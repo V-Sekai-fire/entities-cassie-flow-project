@@ -18,6 +18,7 @@ printf '%-30s %-6s  %s\n' "check" "exit" "verdict / control"
 for script in checks/beautify_determinism.gd \
               checks/curvenet_extract.gd \
               checks/patch_pipeline.gd \
+              checks/crossing_split.gd \
               checks/constraint_solver.gd; do
   name=$(basename "$script" .gd)
   out="checks/out/$name"
