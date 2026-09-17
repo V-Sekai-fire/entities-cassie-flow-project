@@ -1,10 +1,12 @@
 extends SceneTree
 
 # Beautify determinism: identical CassieInputStroke samples produce identical Curve3D output.
-# Control: mutating one sample by 1e-3 (about 1/750 of a credit-card thickness) must differ.
+# Control: mutating one sample by 0.05 (about three stacked nickels at the stroke's 0.5 scale)
+# must differ. Anything under rdp_error (0.002) or bezier_fitting_error (0.01) is absorbed by
+# the fit and reads as identical, which a 1e-3 nudge measured on 2026-09-17.
 
 const N := 32
-const PERTURB := Vector3(1e-3, 0.0, 0.0)
+const PERTURB := Vector3(0.0, 0.05, 0.0)
 
 
 func _make_stroke(perturb: bool) -> CassieInputStroke:
@@ -53,7 +55,7 @@ func _init() -> void:
 		return
 	var c := _run_beautify(_make_stroke(true))
 	if a == c:
-		print("FAIL control caught nothing: 1e-3 perturbation produced the same curve")
+		print("FAIL control caught nothing: 0.05 perturbation produced the same curve")
 		quit(1)
 		return
 	print("DONE beautify_determinism: identical inputs match on %d floats; perturbed differs (control caught)" % a.size())
