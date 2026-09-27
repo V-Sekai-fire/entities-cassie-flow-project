@@ -15,7 +15,7 @@ func _init():
 		if control[i] < lo[i] or control[i] > hi[i]: cout += 1
 	if bad == 0 and cout > 0: print("DONE casteljau_interval: 24/24 in [lo,hi]; u-perturb control leaves interval; device=%s" % rd.get_device_name()); quit(0)
 	else: print("FAIL casteljau_interval: %d outside; control_out=%d" % [bad, cout]); quit(1)
-func _run(rd, spv, fx, u_override) -> PackedFloat32Array:
+func _run(rd: RenderingDevice, spv: String, fx: String, u_override) -> PackedFloat32Array:
 	var ss := RDShaderSPIRV.new(); ss.set_stage_bytecode(RenderingDevice.SHADER_STAGE_COMPUTE, FileAccess.get_file_as_bytes(spv))
 	var shader := rd.shader_create_from_spirv(ss); var pipeline := rd.compute_pipeline_create(shader)
 	var params := FileAccess.get_file_as_bytes(fx+"/cj_params.bin")

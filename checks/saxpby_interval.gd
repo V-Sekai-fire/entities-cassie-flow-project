@@ -21,7 +21,7 @@ func _init():
 		print("DONE saxpby_interval: all %d outputs in [lo,hi]; perturbed control leaves interval; device=%s" % [out.size(), rd.get_device_name()]); quit(0)
 	else:
 		print("FAIL saxpby_interval: %d outside; control_out=%d" % [bad, ctrl_out]); quit(1)
-func _run(rd, spv, fx, perturb) -> PackedFloat32Array:
+func _run(rd: RenderingDevice, spv: String, fx: String, perturb) -> PackedFloat32Array:
 	var ss := RDShaderSPIRV.new(); ss.set_stage_bytecode(RenderingDevice.SHADER_STAGE_COMPUTE, FileAccess.get_file_as_bytes(spv))
 	var shader := rd.shader_create_from_spirv(ss); var pipeline := rd.compute_pipeline_create(shader)
 	var params := FileAccess.get_file_as_bytes(fx+"/params.bin")
