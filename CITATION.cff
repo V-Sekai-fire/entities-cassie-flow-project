@@ -4,7 +4,9 @@ type: software
 title: "Cassie flow project"
 authors:
   - name: "weft"
-license: "Apache-2.0 OR MIT"
+license:
+  - Apache-2.0
+  - MIT
 abstract: >-
   A headless Godot project that drives the cassie pen / mesh / curvenet
   operators exposed by modules/cassie in V-Sekai-fire/entities-godot at
