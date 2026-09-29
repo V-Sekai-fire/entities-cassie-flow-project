@@ -3,7 +3,7 @@ message: "If you use this project or its checks, please cite it as below."
 type: software
 title: "Cassie flow project"
 authors:
-  - name: "weft"
+  - name: "K. S. Ernest (iFire) Lee"
 license:
   - Apache-2.0
   - MIT
