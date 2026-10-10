@@ -16,4 +16,4 @@ GODOT_BIN=<engine binary> checks/run.sh
 
 ## Licence
 
-CITATION.cff lists Apache-2.0 and MIT; there is no LICENSE file.
+MIT. See [LICENSE](LICENSE).
