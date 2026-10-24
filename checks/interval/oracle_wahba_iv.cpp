@@ -4,7 +4,7 @@
 #include <cstring>
 #include <cmath>
 #include <vector>
-// Interval bounds for the Wahba polar-decomposition kernel's R (RFD 2269).
+// Interval bounds for the Wahba polar-decomposition kernel's R (RFD66606-2269).
 // R is the polar factor of H = sum_i q_i p_i^T. The enclosure is not the 24
 // Newton-Schulz iterations replayed in interval form (that iteration diverges
 // under interval widening); it is the exact-arithmetic result bounded by the

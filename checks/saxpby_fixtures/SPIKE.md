@@ -2,7 +2,7 @@
 
 # Phase B spike: GPU dispatch + byte-parity on the owned GPU
 
-Proves the emit -> dispatch -> parity loop for the curvenet GPU port (RFD 2265):
+Proves the emit -> dispatch -> parity loop for the curvenet GPU port (RFD66606-2265):
 a Lean-authored kernel, compiled to SPIR-V, dispatched on a real RenderingDevice,
 produces bit-for-bit the same result as the CPU oracle.
 

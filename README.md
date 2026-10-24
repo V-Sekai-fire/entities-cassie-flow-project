@@ -4,7 +4,7 @@ An engine project that drives the cassie pen, mesh and curvenet operators and ch
 
 ## What it is for
 
-The operators come from the cassie module in `V-Sekai-fire/entities-godot`, named after the CASSIE curve-and-surface sketching paper that CITATION.cff cites. Every check carries a planted negative control. RFD 2269 in [manuals-weftspun](https://github.com/V-Sekai-fire/manuals-weftspun) owns the curvenet parity gate these checks feed.
+The operators come from the cassie module in `V-Sekai-fire/entities-godot`, named after the CASSIE curve-and-surface sketching paper that CITATION.cff cites. Every check carries a planted negative control. RFD66606-2269 in [manuals-weftspun](https://github.com/V-Sekai-fire/manuals-weftspun) owns the curvenet parity gate these checks feed.
 
 ## Build and run
 

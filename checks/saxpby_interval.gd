@@ -1,4 +1,4 @@
-# Interval parity gate (RFD 2269): assert the GPU saxpby result lies inside the
+# Interval parity gate (RFD66606-2269): assert the GPU saxpby result lies inside the
 # oracle's proven [lo,hi] bracket. Driver-independent. Null device is a FAIL.
 extends SceneTree
 func _init():

@@ -1,4 +1,4 @@
-# Stage 1 (RFD 2265): Ramer-Douglas-Peucker simplifier (CassieAvbd.CurveRdp ->
+# Stage 1 (RFD66606-2265): Ramer-Douglas-Peucker simplifier (CassieAvbd.CurveRdp ->
 # curve_rdp.spv) dispatched on a real RenderingDevice, byte-exact vs its slang-cpp
 # oracle. Single thread; in_points at ArrayStride 16, out_keep a uint bitmask (stride 4),
 # out_count the kept total. Params (RdpParams) is padded to a 16-byte uniform block.

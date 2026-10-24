@@ -1,4 +1,4 @@
-# Interval parity gate (RFD 2269): GPU newton reparameterize u-values in [lo,hi].
+# Interval parity gate (RFD66606-2269): GPU newton reparameterize u-values in [lo,hi].
 extends SceneTree
 func _init():
 	var base := (get_script().resource_path as String).get_base_dir()
